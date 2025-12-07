@@ -96,4 +96,27 @@ describe('Scenario Login OrangeHRM', () => {
       .should('be.visible')
       .and('contain', 'Invalid credentials')
   });
+
+  // TEST CASE 005
+  it('TC 005 - Login menggunakan username dengan case insensitive', () => {
+    // buka halaman orangehrm login
+    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+    // get kolom input username
+    // & input `admin`
+    cy.get("input[placeholder='Username']")
+      .type('admin')
+
+    // get kolom input password
+    // then input `admin123`
+    cy.get("input[placeholder='Password']")
+      .type('admin123')
+
+    // get login button 
+    // & click Login
+    cy.get('.oxd-button').click()
+
+    // memastikan user berada di halaman dashboard (berhasil login)
+    cy.url().should('include', 'dashboard')
+  });
 })
