@@ -179,7 +179,7 @@ describe('Scenario Login OrangeHRM', () => {
     // tunggu sampai elemen input username terlihat
     cy.get("input[placeholder='Username']", 
       { timeout: 10000 }).should('be.visible')
-      
+
     // get kolom input username
     // & input `Admin`
     cy.get("input[placeholder='Username']")
@@ -200,5 +200,31 @@ describe('Scenario Login OrangeHRM', () => {
     cy.get('.oxd-alert-content', { timeout: 10000 }) // timeout opsional, menunggu hingga 10 detik
       .should('be.visible')
       .and('contain', 'Invalid credentials')
+  });
+
+  // TEST CASE 008
+  it('TC 008 - Login dengan username dan password kosong', () => {
+    // buka halaman orangehrm login
+    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+    // tunggu sampai elemen input username terlihat
+    cy.get("input[placeholder='Username']", 
+      { timeout: 10000 }).should('be.visible')
+
+    // get login button 
+    // & click Login
+    cy.get('.oxd-button').click()
+    
+    // tunggu hingga error message pada kolom input username muncul, lalu periksa kontennya
+    // memastikan ada `Required` pada error message kolom input username
+    cy.get(':nth-child(2) > .oxd-input-group > .oxd-text', { timeout: 10000 })
+      .should('be.visible')
+      .and('contain', 'Required')
+
+    // tunggu hingga error message pada kolom input password muncul, lalu periksa kontennya
+    // memastikan ada `Required` pada error message kolom input password
+    cy.get(':nth-child(3) > .oxd-input-group > .oxd-text', { timeout: 10000 })
+      .should('be.visible')
+      .and('contain', 'Required')
   });
 })
