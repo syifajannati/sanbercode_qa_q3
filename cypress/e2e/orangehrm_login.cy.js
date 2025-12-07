@@ -4,6 +4,10 @@ describe('Scenario Login OrangeHRM', () => {
     // buka halaman orangehrm login
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
 
+    // tunggu sampai elemen input username terlihat
+    cy.get("input[placeholder='Username']", 
+      { timeout: 10000 }).should('be.visible')
+
     // get kolom input username
     // & input `Admin`
     // cy.get(':nth-child(2) > .oxd-input-group > :nth-child(2) > .oxd-input')
@@ -28,6 +32,10 @@ describe('Scenario Login OrangeHRM', () => {
     // buka halaman orangehrm login
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
 
+    // tunggu sampai elemen input username terlihat
+    cy.get("input[placeholder='Username']", 
+      { timeout: 10000 }).should('be.visible')
+
     // get kolom input username
     // & input `Admin`
     cy.get("input[placeholder='Username']")
@@ -50,6 +58,10 @@ describe('Scenario Login OrangeHRM', () => {
   it('TC 003 - Login menggunakan username dan password yang tidak valid dengan klik Enter', () => {
     // buka halaman orangehrm login
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+    // tunggu sampai elemen input username terlihat
+    cy.get("input[placeholder='Username']", 
+      { timeout: 10000 }).should('be.visible')
 
     // get kolom input username
     // & input `admin123`
@@ -74,6 +86,10 @@ describe('Scenario Login OrangeHRM', () => {
   it('TC 004 - Login menggunakan username dan password yang tidak valid dengan klik Login', () => {
     // buka halaman orangehrm login
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+    // tunggu sampai elemen input username terlihat
+    cy.get("input[placeholder='Username']", 
+      { timeout: 10000 }).should('be.visible')
 
     // get kolom input username
     // & input `admin123`
@@ -102,6 +118,10 @@ describe('Scenario Login OrangeHRM', () => {
     // buka halaman orangehrm login
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
 
+    // tunggu sampai elemen input username terlihat
+    cy.get("input[placeholder='Username']", 
+      { timeout: 10000 }).should('be.visible')
+
     // get kolom input username
     // & input `admin`
     cy.get("input[placeholder='Username']")
@@ -125,6 +145,10 @@ describe('Scenario Login OrangeHRM', () => {
     // buka halaman orangehrm login
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
 
+    // tunggu sampai elemen input username terlihat
+    cy.get("input[placeholder='Username']", 
+      { timeout: 10000 }).should('be.visible')
+
     // get kolom input username
     // & input `test`
     cy.get("input[placeholder='Username']")
@@ -134,6 +158,37 @@ describe('Scenario Login OrangeHRM', () => {
     // then input `admin123`
     cy.get("input[placeholder='Password']")
       .type('admin123')
+
+    // get login button 
+    // & click Login
+    cy.get('.oxd-button').click()
+
+    // tunggu hingga alert muncul, lalu periksa kontennya
+    // memastikan ada `Invalid credentials` pada alert
+    // (tidak berhasil login)
+    cy.get('.oxd-alert-content', { timeout: 10000 }) // timeout opsional, menunggu hingga 10 detik
+      .should('be.visible')
+      .and('contain', 'Invalid credentials')
+  });
+
+  // TEST CASE 007
+  it('TC 007 - Login menggunakan password yang tidak valid, sementara username valid', () => {
+    // buka halaman orangehrm login
+    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+    // tunggu sampai elemen input username terlihat
+    cy.get("input[placeholder='Username']", 
+      { timeout: 10000 }).should('be.visible')
+      
+    // get kolom input username
+    // & input `Admin`
+    cy.get("input[placeholder='Username']")
+      .type('Admin')
+
+    // get kolom input password
+    // then input `admin`
+    cy.get("input[placeholder='Password']")
+      .type('admin')
 
     // get login button 
     // & click Login
