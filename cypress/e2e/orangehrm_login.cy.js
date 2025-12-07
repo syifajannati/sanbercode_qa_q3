@@ -277,4 +277,29 @@ describe('Scenario Login OrangeHRM', () => {
       .should('be.visible')
       .and('contain', 'Required')
   });
+
+  // TEST CASE 011
+  it('TC 011 - Login dengan username kosong, dan password tidak valid', () => {
+    // buka halaman orangehrm login
+    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+    // tunggu sampai elemen input username terlihat
+    cy.get("input[placeholder='Username']", 
+      { timeout: 10000 }).should('be.visible')
+
+    // get kolom input password
+    // then input `test`
+    cy.get("input[placeholder='Password']")
+      .type('test')
+
+    // get login button 
+    // & click Login
+    cy.get('.oxd-button').click()
+    
+    // tunggu hingga error message pada kolom input username muncul, lalu periksa kontennya
+    // memastikan ada `Required` pada error message kolom input username
+    cy.get(':nth-child(2) > .oxd-input-group > .oxd-text', { timeout: 10000 })
+      .should('be.visible')
+      .and('contain', 'Required')
+  });
 })
