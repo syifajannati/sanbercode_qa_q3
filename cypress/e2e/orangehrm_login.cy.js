@@ -119,4 +119,31 @@ describe('Scenario Login OrangeHRM', () => {
     // memastikan user berada di halaman dashboard (berhasil login)
     cy.url().should('include', 'dashboard')
   });
+
+  // TEST CASE 006
+  it('TC 006 - Login menggunakan username yang tidak valid, sementara password valid', () => {
+    // buka halaman orangehrm login
+    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+    // get kolom input username
+    // & input `test`
+    cy.get("input[placeholder='Username']")
+      .type('test')
+
+    // get kolom input password
+    // then input `admin123`
+    cy.get("input[placeholder='Password']")
+      .type('admin123')
+
+    // get login button 
+    // & click Login
+    cy.get('.oxd-button').click()
+
+    // tunggu hingga alert muncul, lalu periksa kontennya
+    // memastikan ada `Invalid credentials` pada alert
+    // (tidak berhasil login)
+    cy.get('.oxd-alert-content', { timeout: 10000 }) // timeout opsional, menunggu hingga 10 detik
+      .should('be.visible')
+      .and('contain', 'Invalid credentials')
+  });
 })
