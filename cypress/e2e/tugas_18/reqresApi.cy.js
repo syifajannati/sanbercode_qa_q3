@@ -201,5 +201,42 @@ describe('Reqres API Test Scenario', () => {
         })
     });
 
+    it('TC-009: Update', () => {
+        const userId = 2
+        cy.request({
+            method: 'PATCH',
+            url: `${baseUrl}/users/${userId}`,
+            headers: {
+                'x-api-key': authToken,
+            },
+            body: {
+                job: 'Senior Software Quality Engineer'
+            }
+        }).then((response) => {
+            // response verification
+            expect(response.status).to.eq(200)  
 
+            // verify response body structure and data
+            expect(response.body).to.not.have.property('id')
+            expect(response.body).to.have.property('job').that.equals('Senior Software Quality Engineer')
+            expect(response.body).to.have.property('updatedAt').that.is.a('string').and.is.not.empty
+        })
+    });
+
+    it('TC-010: Delete', () => {
+        const userId = 2   
+        cy.request({
+            method: 'DELETE',
+            url: `${baseUrl}/users/${userId}`,
+            headers: {
+                'x-api-key': authToken,
+            },
+        }).then((response) => {
+            // response verification
+            expect(response.status).to.eq(204)
+            expect(response.body).to.be.empty
+        })
+    });
+
+    
 });
