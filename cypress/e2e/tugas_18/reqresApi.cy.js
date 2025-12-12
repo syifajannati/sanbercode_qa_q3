@@ -1,4 +1,4 @@
-describe('Scenario Verifikasi Fungsi View User', () => {
+describe('Reqres API Test Scenario', () => {
     const baseUrl = 'https://reqres.in/api'
     const authToken = 'reqres_1e1434fe6bae4a3c9cc0164af48ab365'
     const apiKey = 'reqres-free-v1'
