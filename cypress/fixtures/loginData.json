@@ -1,0 +1,28 @@
+{
+    "valid": {
+        "username": "Admin",
+        "password": "admin123",
+        "caseInsensitiveUsername": "admin"
+    },
+    "invalid": {
+        "username": "WrongUser",
+        "password": "wrongpassword"
+    },
+    "caseInsensitive": {
+        "username": "admin"
+    },
+    "endpoints": {
+        "dashboardTimeAtWork": "**/api/v2/dashboard/employees/time-at-work**",
+        "orangeImage": "**/web/images/orange.png**",
+        "appCss": "**/css/app.css**",
+        "nunitoFont": "**/fonts/nunito-sans-v6-latin-ext_latin-regular.woff2**",
+        "appJs": "**/js/app.js**",
+        "messages": "**/messages",
+        "validateAuth": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/validate",
+        "nunito600Font": "**/fonts/nunito-sans-v6-latin-ext_latin-600.woff2**",
+        "chunkVendors": "**chunk-vendors.js**",
+        "ohrmBranding": "**ohrm_branding.png**",
+        "bootstrapIcons": "**/fonts/bootstrap-icons.woff2**",
+        "loginAuth": "**/index.php/auth/login"
+    }
+}
