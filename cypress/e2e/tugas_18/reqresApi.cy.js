@@ -238,5 +238,110 @@ describe('Reqres API Test Scenario', () => {
         })
     });
 
-    
+    it('TC-011: Register - Successful', () => {
+        cy.request({
+            method: 'POST',
+            url: `${baseUrl}/register`,
+            headers: {
+                'x-api-key': authToken,
+            },
+            body: {
+                email: 'eve.holt@reqres.in',
+                password: 'pistol'
+            },
+        }).then((response) => {
+            // response verification
+            expect(response.status).to.eq(200)
+            expect(response.body).to.have.property('id').that.is.a('number')
+            expect(response.body).to.have.property('token').that.is.a('string').and.is.not.empty
+        })
+    });
+
+    it('TC-012: Register - Unsuccessful', () => {
+        cy.request({
+            method: 'POST',
+            url: `${baseUrl}/register`,
+            headers: {
+                'x-api-key': authToken,
+            },
+            body: {
+                email: 'sydney@fife'
+            },
+            failOnStatusCode: false // prevent Cypress from failing the test on 4xx/5xx status codes
+        }).then((response) => {
+            // response verification
+            expect(response.status).to.eq(400)
+            expect(response.body).to.have.property('error').that.equals('Missing password')
+        })
+    });
+
+    it('TC-013: Login - Successful', () => {
+        cy.request({
+            method: 'POST',
+            url: `${baseUrl}/login`,
+            headers: {
+                'x-api-key': authToken,
+            },
+            body: {
+                email: 'eve.holt@reqres.in',
+                password: 'cityslicka'
+            },
+        }).then((response) => {
+            // response verification
+            expect(response.status).to.eq(200)
+            expect(response.body).to.have.property('token').that.is.a('string').and.is.not.empty
+        })
+    });
+
+    it('TC-014: Login - Unsuccessful', () => {
+        cy.request({
+            method: 'POST',
+            url: `${baseUrl}/login`,
+            headers: {
+                'x-api-key': authToken,
+            },
+            body: {
+                email: 'peter@klaven'
+            },
+            failOnStatusCode: false // prevent Cypress from failing the test on 4xx/5xx status codes
+        }).then((response) => {
+            // response verification
+            expect(response.status).to.eq(400)
+            expect(response.body).to.have.property('error').that.equals('Missing password')
+        })
+    });
+
+    it('TC-015: Delayed Response', () => {
+        cy.request({
+            method: 'GET',
+            url: `${baseUrl}/users?delay=3`,
+            headers: {
+                'x-api-key': authToken,
+            },
+        }).then((response) => {
+            // response verification
+            expect(response.status).to.eq(200)
+            expect(response.body).to.have.property('page', 1);
+            expect(response.body).to.have.property('per_page', 6);
+            expect(response.body).to.have.property('total', 12);
+            expect(response.body).to.have.property('total_pages', 2);
+            expect(response.body.data).to.be.an('array').that.has.lengthOf(6);
+
+            // validate each item in array 
+            response.body.data.forEach((item) => {
+                // validate structure 
+                expect(item).to.have.all.keys('id', 'email', 'first_name', 'last_name', 'avatar');
+            })
+
+            // response time verification
+            expect(response.duration).to.be.greaterThan(3000)
+
+            // specific data verification
+            expect(response.body.data[0]).to.have.property('id', 1)
+            expect(response.body.data[0]).to.have.property('email', 'george.bluth@reqres.in')
+            expect(response.body.data[0]).to.have.property('first_name', 'George')
+            expect(response.body.data[0]).to.have.property('last_name', 'Bluth')
+            expect(response.body.data[0]).to.have.property('avatar', 'https://reqres.in/img/faces/1-image.jpg') 
+        })
+    });
 });
