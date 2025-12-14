@@ -1,0 +1,38 @@
+{
+    "filterData": {
+        "valid": {
+            "employeeName": "",
+            "jobTitle": "Automaton Tester",
+            "location": "HQ - CA, USA"
+        },
+        "invalid": {
+            "employeeName": "",
+            "jobTitle": "",
+            "location": ""
+        }
+    },
+
+    "endpoints": {
+        "assets": {
+            "images": {
+                "orangeImage": "**/images/orange.png"
+            },
+            "styles": {
+                "appCss": "**/css/app.css",
+                "bootstrapIcons": "**/fonts/bootstrap-icons.woff2"
+            },
+            "scripts": {
+                "appJs": "**/js/app.js",
+                "chunkVendors": "**/js/chunk-vendors.js"
+            },
+            "fonts": {
+                "nunitoRegular": "**/fonts/nunito-sans-v6-latin-ext_latin-regular.woff2",
+                "nunito600": "**/fonts/nunito-sans-v6-latin-ext_latin-600.woff2"
+            }
+        },
+        "apis": {
+            "filteredEmployees": "**/api/v2/directory/employees?limit=**",
+            "searchEmployeeName": "**/api/v2/directory/employees?nameOrId=**"
+        }
+    }
+}

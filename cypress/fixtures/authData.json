@@ -1,0 +1,57 @@
+{
+    "users": {
+        "valid": {
+            "username": "Admin",
+            "password": "admin123"
+        },
+        "invalid": {
+            "username": "WrongUser",
+            "password": "wrongpassword"
+        },
+        "caseInsensitive": {
+            "lowercase": {
+                "username": "admin",
+                "password": "admin123"
+            },
+            "uppercase": {
+                "username": "ADMIN",
+                "password": "ADMIN123"
+            }
+        }
+    },
+    
+    "endpoints": {
+        "assets": {
+            "doc": {
+                "login": "**/index.php/auth/login",
+                "passwordReset": "**/index.php/auth/requestPasswordResetCode",
+                "validate": "**/index.php/auth/validate"
+            },
+
+            "images": {
+                "orangeImage": "**/images/orange.png**",
+                "ohrmBranding": "**/ohrm_branding.png**"
+            },
+            
+            "styles": {
+                "appCss": "**/css/app.css**",
+                "bootstrapIcons": "**/fonts/bootstrap-icons.woff2"
+            },
+            
+            "scripts": {
+                "appJs": "**/js/app.js**",
+                "chunkVendors": "**/chunk-vendors.js**"
+            },
+            
+            "fonts": {
+                "nunitoRegular": "**/fonts/nunito-sans-v6-latin-ext_latin-regular.woff2",
+                "nunito600": "**/fonts/nunito-sans-v6-latin-ext_latin-600.woff2"
+            }
+        },
+        
+        "apis": {
+            "timeAtWork": "**/api/v2/dashboard/employees/time-at-work**",
+            "messages": "**/messages"
+        }
+    }
+}
