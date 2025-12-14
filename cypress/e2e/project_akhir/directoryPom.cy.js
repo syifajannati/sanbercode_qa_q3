@@ -1,7 +1,7 @@
-import LoginPage from '../../support/pageObjects/loginPage.js';
 import authData from '../../fixtures/authData.json';
-import DirectoryPage from "../../support/pageObjects/directoryPage";
 import directoryData from "../../fixtures/directoryData.json";
+import DirectoryPage from "../../support/pageObjects/directoryPage";
+import LoginPage from '../../support/pageObjects/loginPage.js';
 
 
 describe('Directory Scenario with POM', () => {
@@ -15,24 +15,32 @@ describe('Directory Scenario with POM', () => {
         //     .clickLoginButton()
         //     .verifyOnDashboard()
 
+        // login
         LoginPage
             .loginWithValidCredentials()
 
+        // directory page load
         DirectoryPage
             .waitForDashboardPageLoad()
             .clickDirectoryMenu()
             .verifyOnDirectory()
             .waitForDirectoryPageLoad()
+
+        // verify empty filters
+        DirectoryPage
             .verifyFieldIsEmpty(DirectoryPage.getEmployeeNameField)
             .verifyDropdownHasDefault(DirectoryPage.getJobTitleDropdown)
             .verifyDropdownHasDefault(DirectoryPage.getLocationDropdown)
+        
+        // click search
+        DirectoryPage
             .interceptBeforeAction(
                 directoryData.endpoints.apis.filteredEmployees,
                 'employeesApi',
                 'GET'
             )
             .verifyElementEnabled(DirectoryPage.getResetButton)
-            .clickResetButton()
+            .clickSearchButton()
             .waitForIntercept('employeesApi', 5000)
             .verifyStatusCode('employeesApi', 200)
             .verifyHasLengthGreaterThan(
@@ -42,16 +50,31 @@ describe('Directory Scenario with POM', () => {
 
     // TC 002 - Filter by Job Title
     it('TC 002 - Should filter employees by Job Title only', () => {
+        // login
         LoginPage
             .loginWithValidCredentials()
 
+        // directory page load
         DirectoryPage
             .waitForDashboardPageLoad()
+            .interceptBeforeAction(
+                directoryData.endpoints.assets.doc.viewDirectory,
+                'viewDirectory',
+                'GET'
+            )
             .clickDirectoryMenu()
+            .waitForIntercept('viewDirectory', 5000)
+            .verifyStatusCode('viewDirectory', 200)
             .verifyOnDirectory()
             .waitForDirectoryPageLoad()
+
+        // filter
+        DirectoryPage
             .clickJobTitleDropdown()
             .selectOptionByIndex(1)
+
+        // search
+        DirectoryPage
             .interceptBeforeAction(
                 directoryData.endpoints.apis.filteredEmployees,
                 'filteredEmployeesApi',
@@ -60,25 +83,50 @@ describe('Directory Scenario with POM', () => {
             .clickSearchButton()
             .waitForIntercept('filteredEmployeesApi', 5000)
             .verifyStatusCode('filteredEmployeesApi', 200)
-            // .verifyHasLengthGreaterThan(
-            //     DirectoryPage.getRecordsContainer,
-            //     0)
     });
 
     // TC 003 - Filter by Location
     it('TC 003 - Should filter employees by Location only', () => {
-        LoginPage
-            .loginWithValidCredentials()
+        // login
+        // LoginPage
+        //     .loginWithValidCredentials()
 
+        // login
+        LoginPage
+            .visit()
+            .waitForPageLoad()
+            .inputUsername(authData.users.valid.username)
+            .inputPassword(authData.users.valid.password)
+            .interceptBeforeAction(
+                directoryData.endpoints.apis.timeAtWork,
+                'timeAtWork',
+                'GET'
+            )
+            .clickLoginButton()
+            .waitForIntercept(
+                'timeAtWork',
+                3000
+            )
+            .verifyStatusCode(
+                'timeAtWork',
+                200
+            )
+            .verifyOnDashboard()
+
+        // directory page load
         DirectoryPage
             .waitForDashboardPageLoad()
             .clickDirectoryMenu()
             .verifyOnDirectory()
             .waitForDirectoryPageLoad()
+
+        // filter 
+        DirectoryPage
             .clickLocationDropdown()
-            // .selectDropdown('Texas R&D')
             .selectOptionByIndex(1)
 
+        // search
+        DirectoryPage
             .interceptBeforeAction(
                 directoryData.endpoints.apis.filteredEmployees,
                 'filteredEmployeesApi',
@@ -87,26 +135,52 @@ describe('Directory Scenario with POM', () => {
             .clickSearchButton()
             .waitForIntercept('filteredEmployeesApi', 5000)
             .verifyStatusCode('filteredEmployeesApi', 200)
-            // .verifyHasLengthGreaterThan(
-            //     DirectoryPage.getRecordsContainer,
-            //     0)
     });
 
     // TC 004 - Filter by Job Title AND Location (Combined)
     it('TC 004 - Should filter by both Job Title and Location', () => {
-        LoginPage
-            .loginWithValidCredentials()
+        // login
+        // LoginPage
+        //     .loginWithValidCredentials()
 
+        // login
+        LoginPage
+            .visit()
+            .waitForPageLoad()
+            .inputUsername(authData.users.valid.username)
+            .inputPassword(authData.users.valid.password)
+            .interceptBeforeAction(
+                directoryData.endpoints.assets.doc.dashboardIndex,
+                'dashboardIndex',
+                'GET'
+            )
+            .clickLoginButton()
+            .waitForIntercept(
+                'dashboardIndex',
+                3000
+            )
+            .verifyStatusCode(
+                'dashboardIndex',
+                200
+            )
+            .verifyOnDashboard()
+
+        // directory page load
         DirectoryPage
             .waitForDashboardPageLoad()
             .clickDirectoryMenu()
             .verifyOnDirectory()
             .waitForDirectoryPageLoad()
+        
+        // filter 
+        DirectoryPage
             .clickJobTitleDropdown()
             .selectOptionByIndex(1)
             .clickLocationDropdown()
             .selectOptionByIndex(1)
 
+        // search
+        DirectoryPage
             .interceptBeforeAction(
                 directoryData.endpoints.apis.filteredEmployees,
                 'filteredEmployeesApi',
@@ -122,14 +196,32 @@ describe('Directory Scenario with POM', () => {
 
     // TC 005 - Search by Employee Name (Autocomplete)
     it('TC 005 - Should filter by Employee Name using autocomplete', () => {
+        // login
         LoginPage
             .loginWithValidCredentials()
-            
+
+        // directory page load
         DirectoryPage
             .waitForDashboardPageLoad()
+            .interceptBeforeAction(
+                directoryData.endpoints.assets.styles.bootstrapIcons,
+                'bootstrapIcons',
+                'GET'
+            )
             .clickDirectoryMenu()
+            .waitForIntercept(
+                'bootstrapIcons',
+                3000
+            )
+            .verifyStatusCode(
+                'bootstrapIcons',
+                200
+            )
             .verifyOnDirectory()
             .waitForDirectoryPageLoad()
+
+        // filter
+        DirectoryPage
             .interceptBeforeAction(
                 directoryData.endpoints.apis.searchEmployeeName,
                 'searchEmployeeApi',
@@ -139,6 +231,9 @@ describe('Directory Scenario with POM', () => {
             .waitForIntercept('searchEmployeeApi', 3000)
             .verifyStatusCode('searchEmployeeApi', 200)
             .selectFirstAutocompleteOption()
+        
+        // search
+        DirectoryPage
             .clickSearchButton()
             .verifyHasLengthGreaterThan(
                 DirectoryPage.getRecordsContainer,
@@ -146,14 +241,32 @@ describe('Directory Scenario with POM', () => {
     });
 
     it("TC 006 - Should show 'No Records Found' when searching by non-existent employee name", () => {
+        // login
         LoginPage
             .loginWithValidCredentials()
 
+        // directory page load
         DirectoryPage
             .waitForDashboardPageLoad()
+            .interceptBeforeAction(
+                directoryData.endpoints.assets.scripts.chunkVendors,
+                'chunkVendorsJs',
+                'GET'
+            )
             .clickDirectoryMenu()
+            .waitForIntercept(
+                'chunkVendorsJs',
+                3000
+            )
+            .verifyStatusCode(
+                'chunkVendorsJs',
+                200
+            )
             .verifyOnDirectory()
             .waitForDirectoryPageLoad()
+        
+        // filter
+        DirectoryPage
             .interceptBeforeAction(
                 directoryData.endpoints.apis.searchEmployeeName,
                 'searchEmployeeApi',
@@ -168,23 +281,39 @@ describe('Directory Scenario with POM', () => {
 
      // TC 007 - Reset Filters After Search
     it('TC 007 - Should reset to default view after applying filters', () => {
-        // Login
+        // login
         LoginPage
             .loginWithValidCredentials()
 
-        // Apply filters
+        // directory page load
         DirectoryPage
             .waitForDashboardPageLoad()
+            .interceptBeforeAction(
+                directoryData.endpoints.assets.fonts.nunitoRegular,
+                'nunitoRegular',
+                'GET'
+            )
             .clickDirectoryMenu()
+            .waitForIntercept(
+                'nunitoRegular',
+                3000
+            )
+            .verifyStatusCode(
+                'nunitoRegular',
+                200
+            )
             .verifyOnDirectory()
             .waitForDirectoryPageLoad()
+        
+        // filter
+        DirectoryPage
             .inputEmployeeName('John')
             .clickJobTitleDropdown()
             .selectOptionByIndex(1)
             .clickLocationDropdown()
             .selectOptionByIndex(1)
         
-        // Then reset
+        // reset
         DirectoryPage
             .interceptBeforeAction(
                 directoryData.endpoints.apis.filteredEmployees,
@@ -194,6 +323,9 @@ describe('Directory Scenario with POM', () => {
             .clickResetButton()
             .waitForIntercept('filteredEmployeeApi', 5000)
             .verifyStatusCode('filteredEmployeeApi', 200)
+        
+        // verify result
+        DirectoryPage
             .verifyFieldIsEmpty(DirectoryPage.getEmployeeNameField)
             .verifyFieldIsEmpty(DirectoryPage.getJobTitleDropdown)
             .verifyFieldIsEmpty(DirectoryPage.getLocationDropdown)

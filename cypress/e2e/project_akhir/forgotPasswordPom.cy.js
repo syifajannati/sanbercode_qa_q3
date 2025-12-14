@@ -1,6 +1,6 @@
-import LoginPage from '../../support/pageObjects/loginPage';
-import ForgotPasswordPage from '../../support/pageObjects/forgotPasswordPage';
 import authData from '../../fixtures/authData.json';
+import ForgotPasswordPage from '../../support/pageObjects/forgotPasswordPage';
+import LoginPage from '../../support/pageObjects/loginPage';
 
 
 describe('Forgot Password Scenario with POM', () => {

@@ -1,5 +1,5 @@
-import LoginPage from '../../support/pageObjects/loginPage.js';
 import authData from '../../fixtures/authData.json';
+import LoginPage from '../../support/pageObjects/loginPage.js';
 
 
 describe('Login Scenario with POM', () => {

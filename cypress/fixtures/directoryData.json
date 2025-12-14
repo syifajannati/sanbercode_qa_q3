@@ -14,8 +14,14 @@
 
     "endpoints": {
         "assets": {
+            "doc": {
+                "dashboardIndex": "**/index.php/dashboard/index",
+                "viewDirectory": "**/index.php/directory/viewDirectory"
+            },
             "images": {
-                "orangeImage": "**/images/orange.png"
+                "employee7": "**/viewPhoto/empNumber/7",
+                "orangeHrmLogo": "**/images/orangehrm-logo.png**",
+                "orange": "**/images/orange.png**"
             },
             "styles": {
                 "appCss": "**/css/app.css",
@@ -23,16 +29,25 @@
             },
             "scripts": {
                 "appJs": "**/js/app.js",
-                "chunkVendors": "**/js/chunk-vendors.js"
+                "chunkVendors": "**/js/chunk-vendors.js**",
+                "detector": "**/dist/detector.js"
             },
             "fonts": {
+                "nunitoItalic": "**/fonts/nunito-sans-v6-latin-ext_latin-italic.woff2",
                 "nunitoRegular": "**/fonts/nunito-sans-v6-latin-ext_latin-regular.woff2",
                 "nunito600": "**/fonts/nunito-sans-v6-latin-ext_latin-600.woff2"
             }
         },
         "apis": {
+            "actionSummary": "**/api/v2/dashboard/employees/action-summary",
+            "feed": "**/api/v2/buzz/feed**",
+            "leaves": "**/api/v2/dashboard/employees/leaves**",
+            "locations": "**/api/v2/dashboard/employees/locations",
             "filteredEmployees": "**/api/v2/directory/employees?limit=**",
-            "searchEmployeeName": "**/api/v2/directory/employees?nameOrId=**"
+            "searchEmployeeName": "**/api/v2/directory/employees?nameOrId=**",
+            "shortcuts": "**/api/v2/dashboard/shortcuts",
+            "subunit": "**/api/v2/dashboard/employees/subunit",
+            "timeAtWork": "**/api/v2/dashboard/employees/time-at-work**"
         }
     }
 }
