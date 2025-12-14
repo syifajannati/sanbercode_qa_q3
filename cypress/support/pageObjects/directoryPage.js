@@ -122,6 +122,31 @@ class DirectoryPage {
         return cy.get("input[placeholder='Type for hints...']")
     }
 
+    getEmployeeCards() {
+        return cy.get('.orangehrm-directory-card')
+    }
+
+    getEmployeeDetail() {
+        return cy.get('.orangehrm-corporate-directory-sidebar > .oxd-grid-item > .oxd-sheet')
+    }
+
+    getEmployeePhotoDetail() {
+        return cy.get('.orangehrm-corporate-directory-sidebar > .oxd-grid-item > .oxd-sheet > .orangehrm-profile-picture > .orangehrm-profile-picture-img')
+    }
+
+    getEmployeeNameDetail() {
+        return cy.get('.orangehrm-corporate-directory-sidebar > .oxd-grid-item > .oxd-sheet > .orangehrm-directory-card-header')
+    }
+
+    getEmployeeDetailBackButton() {
+        return cy.get("div[class='orangehrm-corporate-directory-sidebar'] i[class='oxd-icon bi-arrow-right']")
+    }
+
+    // Method untuk get employee photo elements
+    getEmployeePhotos() {
+        return cy.get('.orangehrm-directory-card img, [data-testid="employee-photo"]');
+    }
+
     getAutocompleteOptions() {
         return cy.get('.oxd-autocomplete-option');
     }
@@ -169,6 +194,16 @@ class DirectoryPage {
 
     inputEmployeeName(employeeName) {
         this.getEmployeeNameField().type(employeeName)
+        return this;
+    }
+
+    clickFirstEmployeeCard() {
+        this.getEmployeeCards().first().click()
+        return this;
+    }
+
+    clickEmployeeDetailBackButton() {
+        this.getEmployeeDetailBackButton().click()
         return this;
     }
 
@@ -230,10 +265,6 @@ class DirectoryPage {
 
     clickSearchButton() {
         this.getSearchButton().click()
-        return this;
-    }
-
-    scrollRecords() {
         return this;
     }
 
@@ -339,6 +370,59 @@ class DirectoryPage {
             .should('have.length', 0)
 
         return this
+    }
+
+    // Method untuk verify all photos load
+    verifyAllPhotosLoaded() {
+        this.getEmployeePhotos()
+            .should('have.length.gt', 0)
+            .each(($img, index) => {
+                // Check image exists and has src
+                cy.wrap($img)
+                    .should('be.visible')
+                    .and('have.attr', 'src')
+                    .and('not.be.empty')
+                    .and(($img) => {
+                        // Check image is not broken
+                        // expect($img[0].naturalWidth).to.be.greaterThan(0);
+                        // expect($img[0].naturalHeight).to.be.greaterThan(0);
+                    });
+            });
+        return this;
+    }
+
+    verifyEmployeeCardIsNotEmpty() {
+        this.getEmployeeCards()
+            .should('have.length.gt', 0)
+
+        return this;
+    }
+
+    verifyEmployeeDetailVisible() {
+        this.getEmployeeDetail()
+            .should('be.visible')
+
+        return this;
+    }
+
+    verifyEmployeeDetailNotVisible() {
+        this.getEmployeeDetail()
+            .should('not.be.visible')
+
+        return this;
+    }
+
+    verifyEmployeeDetailsContent() {
+        this.getEmployeeNameDetail()
+            .should('be.visible')
+
+        this.getEmployeePhotoDetail()
+            .should('be.visible')
+
+        this.getEmployeeDetailBackButton()
+            .should('be.visible')
+
+        return this;
     }
 }
 

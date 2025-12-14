@@ -333,4 +333,142 @@ describe('Directory Scenario with POM', () => {
                 DirectoryPage.getRecordsContainer,
                 0)
     });
+
+    // TC 008 - Load All Employee Photos
+    it('TC 008 - Should load all employee profile photos in directory', () => {
+        // login
+        // LoginPage
+        //     .loginWithValidCredentials()
+
+        // login
+        LoginPage
+            .visit()
+            .waitForPageLoad()
+            .inputUsername(authData.users.valid.username)
+            .inputPassword(authData.users.valid.password)
+            .interceptBeforeAction(
+                directoryData.endpoints.apis.actionSummary,
+                'actionSummary',
+                'GET'
+            )
+            .clickLoginButton()
+            .waitForIntercept(
+                'actionSummary',
+                3000
+            )
+            .verifyStatusCode(
+                'actionSummary',
+                200
+            )
+            .verifyOnDashboard()
+
+        // directory page load
+        DirectoryPage
+            .waitForDashboardPageLoad()
+            .clickDirectoryMenu()
+            .verifyOnDirectory()
+            .waitForDirectoryPageLoad()
+        
+        // search
+        DirectoryPage
+            .clickSearchButton()
+
+        // load all photos 
+        DirectoryPage
+            .verifyHasLengthGreaterThan(
+                DirectoryPage.getRecordsContainer,
+                0)
+            .verifyAllPhotosLoaded()
+    });
+
+    // TC 009 - Display Employee Details
+    it('TC 009 - Should display employee details panel when clicking on employee card', () => {
+        // login
+        LoginPage
+            .loginWithValidCredentials()
+
+        // directory page load
+        DirectoryPage
+            .waitForDashboardPageLoad()
+            .clickDirectoryMenu()
+            .verifyOnDirectory()
+            .waitForDirectoryPageLoad()
+        
+        // search
+        DirectoryPage
+            .clickSearchButton()
+        
+        // verify employee details
+        DirectoryPage
+            .verifyEmployeeCardIsNotEmpty()
+            .interceptBeforeAction(
+                directoryData.endpoints.apis.detailEmployee,
+                'detailEmployee',
+                'GET'
+            )
+            .clickFirstEmployeeCard()
+            .waitForIntercept(
+                'detailEmployee',
+                3000
+            )
+            .verifyStatusCode(
+                'detailEmployee',
+                200
+            )
+            .verifyEmployeeDetailVisible()
+            .verifyEmployeeDetailsContent()
+    });
+
+    // TC 010 - Back Button Functionality in Employee Detail
+    it('TC 010 - Should navigate back to directory list when clicking back button', () => {
+        // login
+        // LoginPage
+        //     .loginWithValidCredentials()
+
+        // login
+        LoginPage
+            .visit()
+            .waitForPageLoad()
+            .inputUsername(authData.users.valid.username)
+            .inputPassword(authData.users.valid.password)
+            .interceptBeforeAction(
+                directoryData.endpoints.apis.feed,
+                'feed',
+                'GET'
+            )
+            .clickLoginButton()
+            .waitForIntercept(
+                'feed',
+                3000
+            )
+            .verifyStatusCode(
+                'feed',
+                200
+            )
+            .verifyOnDashboard()
+
+        // directory page load
+        DirectoryPage
+            .waitForDashboardPageLoad()
+            .clickDirectoryMenu()
+            .verifyOnDirectory()
+            .waitForDirectoryPageLoad()
+        
+        // search
+        DirectoryPage
+            .clickSearchButton()
+        
+        // verify employee details
+        DirectoryPage
+            .verifyEmployeeCardIsNotEmpty()
+            .clickFirstEmployeeCard()
+            .verifyEmployeeDetailVisible()
+            .verifyEmployeeDetailsContent()
+        
+        // click back button
+        DirectoryPage
+            .clickEmployeeDetailBackButton()
+            .verifyEmployeeDetailNotVisible
+    });
+
 });

@@ -40,6 +40,7 @@
         },
         "apis": {
             "actionSummary": "**/api/v2/dashboard/employees/action-summary",
+            "detailEmployee": "**/api/v2/directory/employees/*model=detailed",
             "feed": "**/api/v2/buzz/feed**",
             "leaves": "**/api/v2/dashboard/employees/leaves**",
             "locations": "**/api/v2/dashboard/employees/locations",
