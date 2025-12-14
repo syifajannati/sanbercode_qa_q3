@@ -10,10 +10,25 @@ describe('Forgot Password Scenario with POM', () => {
             .visit()
             .waitForPageLoad()
             .clickForgotPassword()
+
         ForgotPasswordPage
             .waitForPageLoad()
             .inputUsername(authData.users.valid.username)
+            .interceptBeforeAction(
+                authData.endpoints.assets.doc.sendPasswordReset,
+                'sendResetPasswordDoc',
+                'GET'
+            )
             .clickEnter(ForgotPasswordPage.getUsernameField())
+            .waitForIntercept(
+                'sendResetPasswordDoc',
+                3000
+            )
+            .verifyStatusCode(
+                'sendResetPasswordDoc',
+                200
+            )
+
             .verifySendPasswordReset()
     });
 
@@ -23,10 +38,24 @@ describe('Forgot Password Scenario with POM', () => {
             .visit()
             .waitForPageLoad()
             .clickForgotPassword()
+
         ForgotPasswordPage
             .waitForPageLoad()
             .inputUsername(authData.users.valid.username)
+            .interceptBeforeAction(
+                authData.endpoints.assets.doc.reqResetPassword,
+                'reqResetPassword',
+                'POST'
+            )
             .clickResetPasswordButton()
+            .waitForIntercept(
+                'reqResetPassword',
+                3000
+            )
+            .verifyStatusCode(
+                'reqResetPassword',
+                302
+            )
             .verifySendPasswordReset()
     });
 
@@ -36,10 +65,24 @@ describe('Forgot Password Scenario with POM', () => {
             .visit()
             .waitForPageLoad()
             .clickForgotPassword()
+
         ForgotPasswordPage
             .waitForPageLoad()
             .inputUsername(authData.users.invalid.username)
+            .interceptBeforeAction(
+                authData.endpoints.assets.styles.chunkVendorsCss,
+                'chunkVendorsCss',
+                'GET'
+            )
             .clickEnter(ForgotPasswordPage.getUsernameField())
+            .waitForIntercept(
+                'chunkVendorsCss',
+                3000
+            )
+            .verifyStatusCode(
+                'chunkVendorsCss',
+                200
+            )
             .verifySendPasswordReset()
     });
 
@@ -49,10 +92,24 @@ describe('Forgot Password Scenario with POM', () => {
             .visit()
             .waitForPageLoad()
             .clickForgotPassword()
+
         ForgotPasswordPage
             .waitForPageLoad()
             .inputUsername(authData.users.invalid.username)
+            .interceptBeforeAction(
+                authData.endpoints.assets.scripts.appJs,
+                'appJs',
+                'GET'
+            )
             .clickResetPasswordButton()
+            .waitForIntercept(
+                'appJs',
+                3000
+            )
+            .verifyStatusCode(
+                'appJs',
+                200
+            )
             .verifySendPasswordReset()
     });
     
@@ -61,7 +118,21 @@ describe('Forgot Password Scenario with POM', () => {
             .disableCache()
             .visit()
             .waitForPageLoad()
+            .interceptBeforeAction(
+                authData.endpoints.assets.fonts.nunito600,
+                'nunito600',
+                'GET'
+            )
             .clickForgotPassword()
+            .waitForIntercept(
+                'nunito600',
+                3000
+            )
+            .verifyStatusCode(
+                'nunito600',
+                200
+            )
+
         ForgotPasswordPage
             .waitForPageLoad()
             .inputUsername(authData.users.caseInsensitive.uppercase.username)
@@ -74,7 +145,21 @@ describe('Forgot Password Scenario with POM', () => {
             .disableCache()
             .visit()
             .waitForPageLoad()
+            .interceptBeforeAction(
+                authData.endpoints.assets.styles.bootstrapIcons,
+                'bootstrapIcons',
+                'GET'
+            )
             .clickForgotPassword()
+            .waitForIntercept(
+                'bootstrapIcons',
+                3000
+            )
+            .verifyStatusCode(
+                'bootstrapIcons',
+                200
+            )
+
         ForgotPasswordPage
             .waitForPageLoad()
             .inputUsername(authData.users.caseInsensitive.uppercase.username)
@@ -88,10 +173,24 @@ describe('Forgot Password Scenario with POM', () => {
             .visit()
             .waitForPageLoad()
             .clickForgotPassword()
+
         ForgotPasswordPage
             .waitForPageLoad()
             .inputUsername(authData.users.caseInsensitive.lowercase.username)
+            .interceptBeforeAction(
+                authData.endpoints.apis.messages,
+                'messages',
+                'GET'
+            )
             .clickEnter(ForgotPasswordPage.getUsernameField())
+            .waitForIntercept(
+                'messages',
+                3000
+            )
+            .verifyStatusCode(
+                'messages',
+                304
+            )
             .verifySendPasswordReset()
     });
     
@@ -101,10 +200,24 @@ describe('Forgot Password Scenario with POM', () => {
             .visit()
             .waitForPageLoad()
             .clickForgotPassword()
+
         ForgotPasswordPage
             .waitForPageLoad()
             .inputUsername(authData.users.caseInsensitive.lowercase.username)
+            .interceptBeforeAction(
+                authData.endpoints.assets.styles.appCss,
+                'appCss',
+                'GET'
+            )
             .clickResetPasswordButton()
+            .waitForIntercept(
+                'appCss',
+                3000
+            )
+            .verifyStatusCode(
+                'appCss',
+                200
+            )
             .verifySendPasswordReset()
     });
     
@@ -113,7 +226,21 @@ describe('Forgot Password Scenario with POM', () => {
             .disableCache()
             .visit()
             .waitForPageLoad()
+            .interceptBeforeAction(
+                authData.endpoints.assets.scripts.chunkVendors,
+                'chunkVendorsJs',
+                'GET'
+            )
             .clickForgotPassword()
+            .waitForIntercept(
+                'chunkVendorsJs',
+                3000
+            )
+            .verifyStatusCode(
+                'chunkVendorsJs',
+                200
+            )
+
         ForgotPasswordPage
             .waitForPageLoad()
             .clickEnter(ForgotPasswordPage.getUsernameField())
@@ -125,7 +252,21 @@ describe('Forgot Password Scenario with POM', () => {
             .disableCache()
             .visit()
             .waitForPageLoad()
+            .interceptBeforeAction(
+                authData.endpoints.assets.fonts.nunitoRegular,
+                'nunitoRegular',
+                'GET'
+            )
             .clickForgotPassword()
+            .waitForIntercept(
+                'nunitoRegular',
+                3000
+            )
+            .verifyStatusCode(
+                'nunitoRegular',
+                200
+            )
+
         ForgotPasswordPage
             .waitForPageLoad()
             .clickResetPasswordButton()
@@ -137,7 +278,21 @@ describe('Forgot Password Scenario with POM', () => {
             .disableCache()
             .visit()
             .waitForPageLoad()
+            .interceptBeforeAction(
+                authData.endpoints.assets.doc.reqPasswordResetCode,
+                'reqPasswordResetCode',
+                'GET'
+            )
             .clickForgotPassword()
+            .waitForIntercept(
+                'reqPasswordResetCode',
+                3000
+            )
+            .verifyStatusCode(
+                'reqPasswordResetCode',
+                200
+            )
+
         ForgotPasswordPage
             .waitForPageLoad()
             .clickCancelButton()

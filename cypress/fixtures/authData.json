@@ -24,7 +24,9 @@
         "assets": {
             "doc": {
                 "login": "**/index.php/auth/login",
-                "passwordReset": "**/index.php/auth/requestPasswordResetCode",
+                "reqPasswordResetCode": "**/index.php/auth/requestPasswordResetCode",
+                "reqResetPassword": "**/index.php/auth/requestResetPassword",
+                "sendPasswordReset": "**/index.php/auth/sendPasswordReset",
                 "validate": "**/index.php/auth/validate"
             },
 
@@ -35,7 +37,8 @@
             
             "styles": {
                 "appCss": "**/css/app.css**",
-                "bootstrapIcons": "**/fonts/bootstrap-icons.woff2"
+                "bootstrapIcons": "**/fonts/bootstrap-icons.woff2",
+                "chunkVendorsCss": "**/css/chunk-vendors.css**"
             },
             
             "scripts": {
