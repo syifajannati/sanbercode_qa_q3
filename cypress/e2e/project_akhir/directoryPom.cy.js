@@ -203,6 +203,7 @@ describe('Directory Scenario with POM', () => {
         // directory page load
         DirectoryPage
             .waitForDashboardPageLoad()
+            .disableCache()
             .interceptBeforeAction(
                 directoryData.endpoints.assets.styles.bootstrapIcons,
                 'bootstrapIcons',
@@ -248,6 +249,7 @@ describe('Directory Scenario with POM', () => {
         // directory page load
         DirectoryPage
             .waitForDashboardPageLoad()
+            .disableCache()
             .interceptBeforeAction(
                 directoryData.endpoints.assets.scripts.chunkVendors,
                 'chunkVendorsJs',
@@ -288,6 +290,7 @@ describe('Directory Scenario with POM', () => {
         // directory page load
         DirectoryPage
             .waitForDashboardPageLoad()
+            .disableCache()
             .interceptBeforeAction(
                 directoryData.endpoints.assets.fonts.nunitoRegular,
                 'nunitoRegular',
@@ -427,22 +430,23 @@ describe('Directory Scenario with POM', () => {
 
         // login
         LoginPage
+            .disableCache()
             .visit()
             .waitForPageLoad()
             .inputUsername(authData.users.valid.username)
             .inputPassword(authData.users.valid.password)
             .interceptBeforeAction(
-                directoryData.endpoints.apis.feed,
-                'feed',
+                directoryData.endpoints.apis.leaves,
+                'leaves',
                 'GET'
             )
             .clickLoginButton()
             .waitForIntercept(
-                'feed',
+                'leaves',
                 3000
             )
             .verifyStatusCode(
-                'feed',
+                'leaves',
                 200
             )
             .verifyOnDashboard()

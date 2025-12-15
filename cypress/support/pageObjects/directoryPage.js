@@ -54,6 +54,11 @@ class DirectoryPage {
 
     // ############################## Selector Methods ##############################
 
+    // ----- general / header elements -----
+    getSidebarMenu() {
+        return cy.get(".oxd-sidepanel-body")
+    }
+
     getHeader() {
         return cy.get('.oxd-topbar-header')
     }
@@ -74,6 +79,7 @@ class DirectoryPage {
         return cy.get('.oxd-topbar-body-nav-slot > .oxd-icon-button')
     }
 
+    // ----- dashboard elements -----
     getTimeAtWorkContainer() {
         return cy.get(':nth-child(1) > .oxd-sheet')
     }
@@ -97,15 +103,12 @@ class DirectoryPage {
     getAttendanceChart() {
         return cy.get('.emp-attendance-chart > canvas')
     }
-    
-    getSidebarMenu() {
-        return cy.get(".oxd-sidepanel-body")
-    }
 
     getDashboardTitle() {
         return cy.get('.oxd-topbar-header-breadcrumb > .oxd-text')
     }
 
+    // ----- directory elements -----
     getDirectoryMenu() {
         return cy.get(':nth-child(9) > .oxd-main-menu-item')
     }
@@ -313,6 +316,7 @@ class DirectoryPage {
     //     return this;
     // }
 
+    // ----- assertion for elements -----
     // Method untuk verify element is visible
     verifyElementVisible(selectorMethod) {
         selectorMethod().should('be.visible');
@@ -355,6 +359,7 @@ class DirectoryPage {
         return this;
     }
 
+    // ----- assertions for API -----
     verifyStatusCode(alias, expectedStatusCode) {
         cy.get(`@${alias}`)
             .its('response.statusCode')
@@ -372,6 +377,7 @@ class DirectoryPage {
         return this
     }
 
+    // ----- assertions for employee elements -----
     // Method untuk verify all photos load
     verifyAllPhotosLoaded() {
         this.getEmployeePhotos()
