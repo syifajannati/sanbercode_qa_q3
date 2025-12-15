@@ -20,3 +20,7 @@ Before setting up this automation project, ensure you have the following install
 | **npm** | To install project dependencies and run scripts. | `npm --version` |
 | **Git** | For cloning the repository and version control. | `git --version` |
 | **Web Browser** | Chrome (v100+), Firefox, or Edge to run the tests. | Typically installed on system. |
+
+### 🔧 **Optional but Recommended**
+*   **IDE/Text Editor:** Visual Studio Code with the Cypress Helper extension.
+*   **Internet Connection:** Required to access the demo site and install packages.
