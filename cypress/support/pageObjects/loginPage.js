@@ -72,7 +72,8 @@ class LoginPage {
     }
 
     getUsernameField() {
-        return cy.get('input[placeholder="Username"]')
+        // return cy.get('input[placeholder="Username"]')
+        return cy.get(':nth-child(2) > .oxd-input-group > :nth-child(2) > .oxd-input')
     }
 
     getPasswordIcon() {
@@ -84,7 +85,8 @@ class LoginPage {
     }
 
     getPasswordField() {
-        return cy.get('input[placeholder="Password"]');
+        // return cy.get('input[placeholder="Password"]');
+        return cy.get(':nth-child(3) > .oxd-input-group > :nth-child(2) > .oxd-input')
     }
 
     getLoginButton() {
